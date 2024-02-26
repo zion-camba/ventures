@@ -8,13 +8,15 @@ import { useCartStore } from '../store'
 import React from 'react'
 
 interface ProductRowProps {
+  type?: string
   product: IProduct
-  removeOptimisticProduct: (productId: number) => void
+  removeOptimisticProduct?: (productId: number) => void
 }
 
 const ProductRow: React.FC<ProductRowProps> = ({
   product,
   removeOptimisticProduct,
+  type,
 }) => {
   const router = useRouter()
 
@@ -52,36 +54,38 @@ const ProductRow: React.FC<ProductRowProps> = ({
       <td>{product.name}</td>
       <td>{product.description}</td>
       <td>{product.price}</td>
-      <td>
-        <div className='flex space-x-2'>
-          <button
-            className='btn btn-outline btn-info'
-            onClick={() => handleViewProduct(product.id)}
-          >
-            <BiInfoCircle size='2rem' />
-          </button>
-
-          {!isAdded && (
+      {type !== 'cart' && (
+        <td>
+          <div className='flex space-x-2'>
             <button
               className='btn btn-outline btn-info'
-              onClick={() => addtoCart({ product })}
+              onClick={() => handleViewProduct(product.id)}
             >
-              add
-              {/* <BiSolidTrash size='2rem' /> */}
+              <BiInfoCircle size='2rem' />
             </button>
-          )}
 
-          {isAdded && (
-            <button
-              className='btn btn-outline btn-info'
-              onClick={() => handleDeleteProduct(product.id)}
-            >
-              delete
-              {/* <BiSolidTrash size='2rem' /> */}
-            </button>
-          )}
-        </div>
-      </td>
+            {!isAdded && (
+              <button
+                className='btn btn-outline btn-info'
+                onClick={() => addtoCart({ product })}
+              >
+                add
+                {/* <BiSolidTrash size='2rem' /> */}
+              </button>
+            )}
+
+            {isAdded && (
+              <button
+                className='btn btn-outline btn-info'
+                onClick={() => handleDeleteProduct(product.id)}
+              >
+                delete
+                {/* <BiSolidTrash size='2rem' /> */}
+              </button>
+            )}
+          </div>
+        </td>
+      )}
     </tr>
   )
 }
