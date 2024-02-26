@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { StandardResponse } from '@/app/Helpers/Responses'
 import { createProduct } from '@/app/Helpers/Products'
 
 const schema = z.object({
@@ -8,6 +7,13 @@ const schema = z.object({
   image: z.string(),
   description: z.string(),
 })
+
+interface StandardResponse {
+  success?: boolean
+  errors?: {
+    [key: string]: string | string[]
+  }
+}
 
 export default async function addProduct(
   prevState: any,
