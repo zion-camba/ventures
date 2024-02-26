@@ -22,7 +22,7 @@ const ProductRow: React.FC<ProductRowProps> = ({
   const addtoCart = useCartStore((state: any) => state.addToCart)
   const removeToCart = useCartStore((state: any) => state.removeToCart)
 
-  const handleViewProduct = (product_id) => {
+  const handleViewProduct = (product_id: any) => {
     router.push(`/products/${product_id}`)
   }
 
